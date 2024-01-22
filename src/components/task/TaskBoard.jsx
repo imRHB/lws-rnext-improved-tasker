@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { TASK_LIST } from "../../data/tasks.js";
+import NotFound from "../shared/NotFound.jsx";
 import AddTaskModal from "../ui/AddTaskModal.jsx";
 import TaskBoardAction from "./TaskBoardAction";
 import TaskList from "./TaskList";
@@ -9,7 +10,12 @@ export default function TaskBoard() {
     const [taskList, setTaskList] = useState(TASK_LIST);
     const [showModal, setShowModal] = useState(false);
 
-    function handleAddTask() {}
+    function handleDeleteAllTasks() {
+        if (window.confirm("Delete all tasks?")) {
+            taskList.length = 0;
+            setTaskList([...taskList]);
+        }
+    }
 
     function handleToggleFavorite(taskId) {
         const taskIdx = taskList.findIndex((task) => task.id === taskId);
@@ -18,6 +24,15 @@ export default function TaskBoard() {
         clonedTaskList[taskIdx].isFavorite =
             !clonedTaskList[taskIdx].isFavorite;
         setTaskList(clonedTaskList);
+    }
+
+    function handleDeleteTask(taskId) {
+        if (window.confirm("Delete task?")) {
+            const updatedTaskList = taskList.filter(
+                (task) => task.id !== taskId
+            );
+            setTaskList(updatedTaskList);
+        }
     }
 
     return (
@@ -35,13 +50,19 @@ export default function TaskBoard() {
 
                         <TaskBoardAction
                             onModalOpen={() => setShowModal(true)}
+                            onDeleteAll={handleDeleteAllTasks}
                         />
                     </div>
 
-                    <TaskList
-                        tasks={taskList}
-                        onFavorite={handleToggleFavorite}
-                    />
+                    {taskList.length <= 0 ? (
+                        <NotFound>Task List is empty!</NotFound>
+                    ) : (
+                        <TaskList
+                            tasks={taskList}
+                            onFavorite={handleToggleFavorite}
+                            onDelete={handleDeleteTask}
+                        />
+                    )}
                 </div>
             </div>
         </section>

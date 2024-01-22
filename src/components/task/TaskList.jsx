@@ -2,7 +2,7 @@
 
 import TaskCard from "./TaskCard";
 
-export default function TaskList({ tasks, onFavorite }) {
+export default function TaskList({ tasks, onFavorite, onDelete }) {
     return (
         <div className="overflow-auto">
             <table className="table-fixed overflow-auto xl:w-full">
@@ -37,6 +37,7 @@ export default function TaskList({ tasks, onFavorite }) {
                             key={task.id}
                             task={task}
                             onFavorite={onFavorite}
+                            onDelete={onDelete}
                         />
                     ))}
                 </tbody>
