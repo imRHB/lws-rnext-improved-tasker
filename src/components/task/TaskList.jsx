@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
+
 import TaskCard from "./TaskCard";
 
-export default function TaskList() {
+export default function TaskList({ tasks, onFavorite }) {
     return (
         <div className="overflow-auto">
             <table className="table-fixed overflow-auto xl:w-full">
@@ -30,9 +32,13 @@ export default function TaskList() {
                     </tr>
                 </thead>
                 <tbody>
-                    <TaskCard />
-                    <TaskCard />
-                    <TaskCard />
+                    {tasks.slice(0, 4).map((task) => (
+                        <TaskCard
+                            key={task.id}
+                            task={task}
+                            onFavorite={onFavorite}
+                        />
+                    ))}
                 </tbody>
             </table>
         </div>
