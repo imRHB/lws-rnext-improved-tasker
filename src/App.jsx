@@ -1,10 +1,16 @@
+import Hero from "./components/Hero";
+import Footer from "./components/shared/Footer";
+import Navbar from "./components/shared/Navbar";
+import TaskBoard from "./components/task/TaskBoard";
+
 function App() {
     return (
-        <main className="p-8">
-            <h3 className="text-5xl font-extrabold text-violet-500 text-center underline underline-offset-2">
-                Improved Tasker
-            </h3>
-        </main>
+        <>
+            <Navbar />
+            <Hero />
+            <TaskBoard />
+            <Footer />
+        </>
     );
 }
 
