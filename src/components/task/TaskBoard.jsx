@@ -19,11 +19,24 @@ export default function TaskBoard() {
         },
     ]);
     const [showModal, setShowModal] = useState(false);
+    const [taskToEdit, setTaskToEdit] = useState(null);
 
-    function handleAddTask(newTask) {
+    function handleAddTask(newTask, isAdding) {
         event.preventDefault();
 
-        setTaskList([...taskList, newTask]);
+        if (isAdding) {
+            setTaskList([...taskList, newTask]);
+        } else {
+            setTaskList(
+                taskList.map((task) => {
+                    if (task.id === newTask.id) {
+                        return newTask;
+                    }
+                    return task;
+                })
+            );
+        }
+
         setShowModal(false);
     }
 
@@ -43,6 +56,13 @@ export default function TaskBoard() {
         setTaskList(clonedTaskList);
     }
 
+    function handleEditTask(editedTask) {
+        event.preventDefault();
+
+        setTaskToEdit(editedTask);
+        setShowModal(true);
+    }
+
     function handleDeleteTask(taskId) {
         if (window.confirm("Delete task?")) {
             const updatedTaskList = taskList.filter(
@@ -52,12 +72,18 @@ export default function TaskBoard() {
         }
     }
 
+    function handleModalShow() {
+        setTaskToEdit(null);
+        setShowModal(false);
+    }
+
     return (
         <section className="mb-20" id="tasks">
             {showModal && (
                 <AddTaskModal
-                    onModalClose={() => setShowModal(false)}
                     onAddTask={handleAddTask}
+                    taskToEdit={taskToEdit}
+                    onModalClose={handleModalShow}
                 />
             )}
 
@@ -80,7 +106,8 @@ export default function TaskBoard() {
                         <TaskList
                             tasks={taskList}
                             onFavorite={handleToggleFavorite}
-                            onDelete={handleDeleteTask}
+                            onDeleteTask={handleDeleteTask}
+                            onEditTask={handleEditTask}
                         />
                     )}
                 </div>

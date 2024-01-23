@@ -4,7 +4,12 @@ import { FaStar } from "react-icons/fa";
 
 import TagBadge from "../ui/TagBadge";
 
-export default function TaskCard({ task, onFavorite, onDelete }) {
+export default function TaskCard({
+    task,
+    onFavorite,
+    onDeleteTask,
+    onEditTask,
+}) {
     return (
         <tr className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2">
             <td>
@@ -35,11 +40,16 @@ export default function TaskCard({ task, onFavorite, onDelete }) {
                 <div className="flex items-center justify-center space-x-3">
                     <button
                         className="text-red-500"
-                        onClick={() => onDelete(task.id)}
+                        onClick={() => onDeleteTask(task.id)}
                     >
                         Delete
                     </button>
-                    <button className="text-blue-500">Edit</button>
+                    <button
+                        className="text-blue-500"
+                        onClick={() => onEditTask(task)}
+                    >
+                        Edit
+                    </button>
                 </div>
             </td>
         </tr>
