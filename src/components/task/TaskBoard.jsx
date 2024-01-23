@@ -1,14 +1,31 @@
 import { useState } from "react";
 
-import { TASK_LIST } from "../../data/tasks.js";
+// import { TASK_LIST } from "../../data/tasks.js";
 import NotFound from "../shared/NotFound.jsx";
 import AddTaskModal from "../ui/AddTaskModal.jsx";
 import TaskBoardAction from "./TaskBoardAction";
 import TaskList from "./TaskList";
 
 export default function TaskBoard() {
-    const [taskList, setTaskList] = useState(TASK_LIST);
+    const [taskList, setTaskList] = useState([
+        {
+            id: "E5F6G7H8",
+            title: "Cross-browser Compatibility",
+            description:
+                "Page layout issues in different browsers like Chrome, Firefox, and Safari.",
+            tags: ["compatibility", "browser", "layout"],
+            priority: "medium",
+            isFavorite: true,
+        },
+    ]);
     const [showModal, setShowModal] = useState(false);
+
+    function handleAddTask(newTask) {
+        event.preventDefault();
+
+        setTaskList([...taskList, newTask]);
+        setShowModal(false);
+    }
 
     function handleDeleteAllTasks() {
         if (window.confirm("Delete all tasks?")) {
@@ -38,7 +55,10 @@ export default function TaskBoard() {
     return (
         <section className="mb-20" id="tasks">
             {showModal && (
-                <AddTaskModal onModalOpen={() => setShowModal(false)} />
+                <AddTaskModal
+                    onModalClose={() => setShowModal(false)}
+                    onAddTask={handleAddTask}
+                />
             )}
 
             <div className="container mx-auto">

@@ -1,6 +1,27 @@
 /* eslint-disable react/prop-types */
 
-export default function AddTaskModal({ onModalOpen }) {
+import { useState } from "react";
+
+export default function AddTaskModal({ onAddTask }) {
+    const [task, setTask] = useState({
+        id: crypto.randomUUID(),
+        title: "",
+        description: "",
+        tags: [],
+        priority: "",
+        isFavorite: false,
+    });
+
+    const handleChange = (evt) => {
+        const name = evt.target.name;
+        let value = evt.target.value;
+
+        if (name === "tags") {
+            value = value.split(",");
+        }
+        setTask({ ...task, [name]: value });
+    };
+
     return (
         <>
             <div className="bg-[#191D26] bg-opacity-90 h-full w-full z-50 absolute top-0 left-0" />
@@ -18,6 +39,8 @@ export default function AddTaskModal({ onModalOpen }) {
                             type="text"
                             name="title"
                             id="title"
+                            value={task.title}
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -29,6 +52,8 @@ export default function AddTaskModal({ onModalOpen }) {
                             type="text"
                             name="description"
                             id="description"
+                            value={task.description}
+                            onChange={handleChange}
                             required
                         ></textarea>
                     </div>
@@ -41,6 +66,8 @@ export default function AddTaskModal({ onModalOpen }) {
                                 type="text"
                                 name="tags"
                                 id="tags"
+                                value={task.tags}
+                                onChange={handleChange}
                                 required
                             />
                         </div>
@@ -51,6 +78,8 @@ export default function AddTaskModal({ onModalOpen }) {
                                 className="block w-full cursor-pointer rounded-md bg-[#2D323F] px-3 py-2.5"
                                 name="priority"
                                 id="priority"
+                                value={task.priority}
+                                onChange={handleChange}
                                 required
                             >
                                 <option value="">Select Priority</option>
@@ -66,7 +95,7 @@ export default function AddTaskModal({ onModalOpen }) {
                     <button
                         type="submit"
                         className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
-                        onClick={onModalOpen}
+                        onClick={() => onAddTask(task)}
                     >
                         Create new Task
                     </button>
