@@ -37,7 +37,7 @@ export default function TaskList({
                     </tr>
                 </thead>
                 <tbody>
-                    {tasks.slice(0, 4).map((task) => (
+                    {tasks.map((task) => (
                         <TaskCard
                             key={task.id}
                             task={task}

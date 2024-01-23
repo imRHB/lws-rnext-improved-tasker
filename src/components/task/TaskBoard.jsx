@@ -1,23 +1,13 @@
 import { useState } from "react";
 
-// import { TASK_LIST } from "../../data/tasks.js";
+import { TASK_LIST } from "../../data/tasks.js";
 import NotFound from "../shared/NotFound.jsx";
 import AddTaskModal from "../ui/AddTaskModal.jsx";
 import TaskBoardAction from "./TaskBoardAction";
 import TaskList from "./TaskList";
 
 export default function TaskBoard() {
-    const [taskList, setTaskList] = useState([
-        {
-            id: "E5F6G7H8",
-            title: "Cross-browser Compatibility",
-            description:
-                "Page layout issues in different browsers like Chrome, Firefox, and Safari.",
-            tags: ["compatibility", "browser", "layout"],
-            priority: "medium",
-            isFavorite: true,
-        },
-    ]);
+    const [taskList, setTaskList] = useState(TASK_LIST);
     const [showModal, setShowModal] = useState(false);
     const [taskToEdit, setTaskToEdit] = useState(null);
 
@@ -77,6 +67,16 @@ export default function TaskBoard() {
         setShowModal(false);
     }
 
+    function handleSearchTask(searchTerm) {
+        event.preventDefault();
+
+        const clonedTaskList = [...TASK_LIST];
+        const searchedTaskList = clonedTaskList.filter((task) =>
+            task.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setTaskList(searchedTaskList);
+    }
+
     return (
         <section className="mb-20" id="tasks">
             {showModal && (
@@ -97,6 +97,7 @@ export default function TaskBoard() {
                         <TaskBoardAction
                             onModalOpen={() => setShowModal(true)}
                             onDeleteAll={handleDeleteAllTasks}
+                            onSearchTask={handleSearchTask}
                         />
                     </div>
 
