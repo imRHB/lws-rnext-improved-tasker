@@ -6,15 +6,18 @@ import { TaskContext } from "../../context";
 import { TASK_LIST } from "../../data/tasks";
 
 export default function Search() {
-    const { setTaskList } = useContext(TaskContext);
+    const { taskList, setTaskList } = useContext(TaskContext);
 
     const [searchTerm, setSearchTerm] = useState("");
 
     function handleSearchTask() {
         event.preventDefault();
 
-        const clonedTaskList = [...TASK_LIST];
-        const searchedTaskList = clonedTaskList.filter((task) =>
+        const mergedTaskList = taskList.concat(
+            TASK_LIST.filter((task) => taskList.indexOf(task) < 0)
+        );
+
+        const searchedTaskList = mergedTaskList.filter((task) =>
             task.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
         setTaskList(searchedTaskList);
