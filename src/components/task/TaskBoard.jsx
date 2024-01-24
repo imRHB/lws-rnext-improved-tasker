@@ -11,7 +11,7 @@ export default function TaskBoard() {
     const [showModal, setShowModal] = useState(false);
     const [taskToEdit, setTaskToEdit] = useState(null);
 
-    function handleAddTask(newTask, isAdding) {
+    /* function handleAddTask(newTask, isAdding) {
         event.preventDefault();
 
         if (isAdding) {
@@ -28,7 +28,7 @@ export default function TaskBoard() {
         }
 
         setShowModal(false);
-    }
+    } */
 
     /* function handleDeleteAllTasks() {
         if (window.confirm("Delete all tasks?")) {
@@ -62,10 +62,10 @@ export default function TaskBoard() {
         }
     } */
 
-    function handleModalShow() {
+    /* function handleModalShow() {
         setTaskToEdit(null);
         setShowModal(false);
-    }
+    } */
 
     /* function handleSearchTask(searchTerm) {
         event.preventDefault();
@@ -96,13 +96,7 @@ export default function TaskBoard() {
                     </div>
                 </div>
 
-                {showModal && (
-                    <AddTaskModal
-                        onAddTask={handleAddTask}
-                        taskToEdit={taskToEdit}
-                        onModalClose={handleModalShow}
-                    />
-                )}
+                {showModal && <AddTaskModal />}
             </section>
         </TaskContext.Provider>
     );

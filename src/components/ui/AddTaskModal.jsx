@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { TaskContext } from "../../context";
 
 const taskDefaultState = {
     id: crypto.randomUUID(),
@@ -11,7 +12,10 @@ const taskDefaultState = {
     isFavorite: false,
 };
 
-export default function AddTaskModal({ onAddTask, taskToEdit, onModalClose }) {
+export default function AddTaskModal() {
+    const { taskList, setTaskList, taskToEdit, setTaskToEdit, setShowModal } =
+        useContext(TaskContext);
+
     const [task, setTask] = useState(taskToEdit || taskDefaultState);
     const [isAdding, setIsAdding] = useState(Object.is(taskToEdit, null));
 
@@ -24,6 +28,31 @@ export default function AddTaskModal({ onAddTask, taskToEdit, onModalClose }) {
         }
         setTask({ ...task, [name]: value });
     };
+
+    function handleAddTask(newTask, isAdding) {
+        event.preventDefault();
+
+        if (isAdding) {
+            setTaskList([...taskList, newTask]);
+        } else {
+            setTaskList(
+                taskList.map((task) => {
+                    if (task.id === newTask.id) {
+                        return newTask;
+                    }
+                    return task;
+                })
+            );
+            setTaskToEdit(null);
+        }
+
+        setShowModal(false);
+    }
+
+    function handleModalClose() {
+        setTaskToEdit(null);
+        setShowModal(false);
+    }
 
     return (
         <>
@@ -98,14 +127,14 @@ export default function AddTaskModal({ onAddTask, taskToEdit, onModalClose }) {
                     <button
                         type="button"
                         className="rounded bg-red-600 px-4 py-2 text-white transition-all hover:opacity-80"
-                        onClick={onModalClose}
+                        onClick={handleModalClose}
                     >
                         Cancel
                     </button>
                     <button
                         type="submit"
                         className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
-                        onClick={() => onAddTask(task, isAdding)}
+                        onClick={() => handleAddTask(task, isAdding)}
                     >
                         {isAdding ? "Create new Task" : "Update Task"}
                     </button>
