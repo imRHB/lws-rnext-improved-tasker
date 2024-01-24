@@ -1,27 +1,48 @@
 /* eslint-disable react/prop-types */
 
-import { FaStar } from "react-icons/fa";
+import { useContext } from "react";
 
+import { TaskContext } from "../../context";
+import FavoriteIcon from "../ui/FavoriteIcon";
 import TagBadge from "../ui/TagBadge";
 
-export default function TaskCard({
-    task,
-    onFavorite,
-    onDeleteTask,
-    onEditTask,
-}) {
+export default function TaskCard({ task }) {
+    const { taskList, setTaskList, setTaskToEdit, setShowModal } =
+        useContext(TaskContext);
+
+    function handleToggleFavorite(taskId) {
+        const taskIdx = taskList.findIndex((task) => task.id === taskId);
+        const clonedTaskList = [...taskList];
+
+        clonedTaskList[taskIdx].isFavorite =
+            !clonedTaskList[taskIdx].isFavorite;
+        setTaskList(clonedTaskList);
+    }
+
+    function handleDeleteTask(taskId) {
+        if (window.confirm("Delete task?")) {
+            const updatedTaskList = taskList.filter(
+                (task) => task.id !== taskId
+            );
+            setTaskList(updatedTaskList);
+        }
+    }
+
+    function handleEditTask(editedTask) {
+        event.preventDefault();
+
+        setTaskToEdit(editedTask);
+        setShowModal(true);
+    }
+
     return (
         <tr className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2">
             <td>
                 <span
                     className="cursor-pointer"
-                    onClick={() => onFavorite(task.id)}
+                    onClick={() => handleToggleFavorite(task.id)}
                 >
-                    {task.isFavorite ? (
-                        <FaStar color="#FFFF00" size="20" />
-                    ) : (
-                        <FaStar size="20" />
-                    )}
+                    <FavoriteIcon isFavorite={task.isFavorite} />
                 </span>
             </td>
             <td>{task.title}</td>
@@ -40,13 +61,13 @@ export default function TaskCard({
                 <div className="flex items-center justify-center space-x-3">
                     <button
                         className="text-red-500"
-                        onClick={() => onDeleteTask(task.id)}
+                        onClick={() => handleDeleteTask(task.id)}
                     >
                         Delete
                     </button>
                     <button
                         className="text-blue-500"
-                        onClick={() => onEditTask(task)}
+                        onClick={() => handleEditTask(task)}
                     >
                         Edit
                     </button>

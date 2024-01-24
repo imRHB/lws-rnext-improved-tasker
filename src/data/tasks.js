@@ -16,6 +16,9 @@ export const TASK_LIST = [
         priority: "medium",
         isFavorite: true,
     },
+];
+
+const EXTENDED_TASK_LIST = [
     {
         id: "I9J1K2L3",
         title: "Slow Database Query",

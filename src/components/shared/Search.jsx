@@ -1,9 +1,24 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 
-export default function Search({ onSearchTask }) {
+import { TaskContext } from "../../context";
+import { TASK_LIST } from "../../data/tasks";
+
+export default function Search() {
+    const { setTaskList } = useContext(TaskContext);
+
     const [searchTerm, setSearchTerm] = useState("");
+
+    function handleSearchTask() {
+        event.preventDefault();
+
+        const clonedTaskList = [...TASK_LIST];
+        const searchedTaskList = clonedTaskList.filter((task) =>
+            task.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setTaskList(searchedTaskList);
+    }
 
     return (
         <form>
@@ -21,8 +36,7 @@ export default function Search({ onSearchTask }) {
                     <button
                         type="submit"
                         className="absolute right-2 top-0 h-full rounded-e-lg text-white md:right-4"
-                        onClick={() => onSearchTask(searchTerm)}
-                        onChange={() => onSearchTask(searchTerm)}
+                        onClick={handleSearchTask}
                     >
                         <svg
                             className="h-4 w-4"

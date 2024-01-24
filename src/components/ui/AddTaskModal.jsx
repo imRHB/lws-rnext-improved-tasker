@@ -2,17 +2,17 @@
 
 import { useState } from "react";
 
+const taskDefaultState = {
+    id: crypto.randomUUID(),
+    title: "",
+    description: "",
+    tags: [],
+    priority: "",
+    isFavorite: false,
+};
+
 export default function AddTaskModal({ onAddTask, taskToEdit, onModalClose }) {
-    const [task, setTask] = useState(
-        taskToEdit || {
-            id: crypto.randomUUID(),
-            title: "",
-            description: "",
-            tags: [],
-            priority: "",
-            isFavorite: false,
-        }
-    );
+    const [task, setTask] = useState(taskToEdit || taskDefaultState);
     const [isAdding, setIsAdding] = useState(Object.is(taskToEdit, null));
 
     const handleChange = (evt) => {
