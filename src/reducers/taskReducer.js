@@ -2,7 +2,6 @@ import { TASK_LIST } from "../data/tasks";
 
 export const initialState = {
     taskList: TASK_LIST,
-    message: "Task reducer",
 };
 
 export const taskReducer = (state, action) => {
@@ -33,19 +32,19 @@ export const taskReducer = (state, action) => {
             };
 
         case "TOGGLE_FAVORITE_TASK": {
-            const taskIdx = state.taskList.findIndex(
-                (task) => task.id === action.payload.taskId
-            );
-
-            const clonedTaskList = [...state.taskList];
-            clonedTaskList[taskIdx].isFavorite =
-                !clonedTaskList[taskIdx].isFavorite;
-
-            console.log(clonedTaskList);
+            const updatedTaskList = state.taskList.map((task) => {
+                if (task.id === action.payload.taskId) {
+                    return {
+                        ...task,
+                        isFavorite: !task.isFavorite,
+                    };
+                }
+                return task;
+            });
 
             return {
                 ...state,
-                taskList: [...state.taskList],
+                taskList: updatedTaskList,
             };
         }
 
@@ -56,10 +55,6 @@ export const taskReducer = (state, action) => {
             };
 
         case "SEARCH_TASK": {
-            // const mergedTaskList = state.taskList.concat(
-            //     TASK_LIST.filter((task) => state.taskList.indexOf(task) < 0)
-            // );
-
             return {
                 ...state,
                 taskList: state.taskList.filter((task) =>

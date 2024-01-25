@@ -8,25 +8,22 @@ import FavoriteIcon from "../ui/FavoriteIcon";
 import TagBadge from "../ui/TagBadge";
 
 export default function TaskItem({ task }) {
-    const { setTaskToEdit, setShowModal, dispatch } = useContext(TaskContext);
+    const { dispatch, setShowModal, setTaskToEdit } = useContext(TaskContext);
 
     function handleToggleFavorite(taskId) {
+        event.preventDefault();
+
         dispatch({
             type: "TOGGLE_FAVORITE_TASK",
             payload: {
                 taskId,
             },
         });
-
-        // const taskIdx = state.taskList.findIndex((task) => task.id === taskId);
-        // const clonedTaskList = [...taskList];
-
-        // clonedTaskList[taskIdx].isFavorite =
-        //     !clonedTaskList[taskIdx].isFavorite;
-        // setTaskList(clonedTaskList);
     }
 
     function handleDeleteTask(taskId) {
+        event.preventDefault();
+
         if (window.confirm("Delete task?")) {
             dispatch({
                 type: "DELETE_TASK",
@@ -36,11 +33,6 @@ export default function TaskItem({ task }) {
             });
 
             toast.success(`A task has been deleted with ${taskId} ID!`);
-
-            // const updatedTaskList = taskList.filter(
-            //     (task) => task.id !== taskId
-            // );
-            // setTaskList(updatedTaskList);
         }
     }
 

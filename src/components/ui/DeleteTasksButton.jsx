@@ -1,28 +1,21 @@
 /* eslint-disable react/prop-types */
 
 import { useContext } from "react";
-import { toast } from "react-toastify";
 
 import { TaskContext } from "../../context";
 
 export default function DeleteTasksButton() {
-    const { dispatch } = useContext(TaskContext);
+    const { state, setConfirmModal } = useContext(TaskContext);
 
-    function handleDeleteAllTasks() {
-        if (window.confirm("Delete all tasks?")) {
-            dispatch({
-                type: "DELETE_ALL_TASKS",
-            });
-            // taskList.length = 0;
-            // setTaskList([...taskList]);
-            toast.success("All tasks has been deleted!");
-        }
-    }
+    const taskCount = state.taskList.length;
 
     return (
         <button
-            className="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold"
-            onClick={handleDeleteAllTasks}
+            className={`rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold ${
+                taskCount === 0 && "bg-opacity-50 cursor-not-allowed"
+            }`}
+            onClick={() => setConfirmModal(true)}
+            disabled={taskCount === 0}
         >
             Delete All
         </button>

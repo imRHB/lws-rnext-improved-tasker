@@ -34,20 +34,6 @@ export default function AddTaskModal() {
     function handleAddTask(newTask, isAdding) {
         event.preventDefault();
 
-        /* if (isAdding) {
-            setTaskList([...taskList, newTask]);
-        } else {
-            setTaskList(
-                taskList.map((task) => {
-                    if (task.id === newTask.id) {
-                        return newTask;
-                    }
-                    return task;
-                })
-            );
-            setTaskToEdit(null);
-        } */
-
         if (isAdding) {
             dispatch({
                 type: "ADD_TASK",
@@ -148,7 +134,7 @@ export default function AddTaskModal() {
                 <div className="mt-16 flex items-center justify-between lg:mt-20">
                     <button
                         type="button"
-                        className="rounded bg-red-600 px-4 py-2 text-white transition-all hover:opacity-80"
+                        className="rounded bg-zinc-700 px-4 py-2 text-white transition-all hover:opacity-80"
                         onClick={handleModalClose}
                     >
                         Cancel
@@ -157,7 +143,6 @@ export default function AddTaskModal() {
                         type="submit"
                         className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
                         onClick={() => handleAddTask(task, isAdding)}
-                        // onClick={() => handleAddNewTask(task)}
                     >
                         {isAdding ? "Create new Task" : "Update Task"}
                     </button>

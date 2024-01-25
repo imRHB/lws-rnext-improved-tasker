@@ -18,15 +18,6 @@ export default function Search() {
                 searchTerm,
             },
         });
-
-        // const mergedTaskList = state.taskList.concat(
-        //     TASK_LIST.filter((task) => state.taskList.indexOf(task) < 0)
-        // );
-
-        // const searchedTaskList = mergedTaskList.filter((task) =>
-        //     task.title.toLowerCase().includes(searchTerm.toLowerCase())
-        // );
-        // setTaskList(searchedTaskList);
     }
 
     return (

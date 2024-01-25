@@ -3,6 +3,7 @@ import { useReducer, useState } from "react";
 import { TaskContext } from "../../context/index.js";
 import { initialState, taskReducer } from "../../reducers/taskReducer.js";
 import AddTaskModal from "../ui/AddTaskModal.jsx";
+import ConfirmationModal from "../ui/ConfirmationModal.jsx";
 import TaskBoardHeader from "./TaskBoardHeader.jsx";
 import TaskList from "./TaskList";
 
@@ -10,7 +11,9 @@ export default function TaskBoard() {
     const [state, dispatch] = useReducer(taskReducer, initialState);
 
     const [showModal, setShowModal] = useState(false);
+    const [confirmModal, setConfirmModal] = useState(false);
     const [taskToEdit, setTaskToEdit] = useState(null);
+    const [onClickAction, setOnClickAction] = useState(null);
 
     return (
         <TaskContext.Provider
@@ -20,6 +23,10 @@ export default function TaskBoard() {
                 taskToEdit,
                 setTaskToEdit,
                 setShowModal,
+                confirmModal,
+                setConfirmModal,
+                onClickAction,
+                setOnClickAction,
             }}
         >
             <section className="mb-20" id="tasks">
@@ -32,73 +39,8 @@ export default function TaskBoard() {
                 </div>
 
                 {showModal && <AddTaskModal />}
+                {confirmModal && <ConfirmationModal />}
             </section>
         </TaskContext.Provider>
     );
 }
-
-/* function handleAddTask(newTask, isAdding) {
-        event.preventDefault();
-
-        if (isAdding) {
-            setTaskList([...taskList, newTask]);
-        } else {
-            setTaskList(
-                taskList.map((task) => {
-                    if (task.id === newTask.id) {
-                        return newTask;
-                    }
-                    return task;
-                })
-            );
-        }
-
-        setShowModal(false);
-    } */
-
-/* function handleDeleteAllTasks() {
-        if (window.confirm("Delete all tasks?")) {
-            taskList.length = 0;
-            setTaskList([...taskList]);
-        }
-    } */
-
-/* function handleToggleFavorite(taskId) {
-        const taskIdx = taskList.findIndex((task) => task.id === taskId);
-        const clonedTaskList = [...taskList];
-
-        clonedTaskList[taskIdx].isFavorite =
-            !clonedTaskList[taskIdx].isFavorite;
-        setTaskList(clonedTaskList);
-    } */
-
-/* function handleEditTask(editedTask) {
-        event.preventDefault();
-
-        setTaskToEdit(editedTask);
-        setShowModal(true);
-    } */
-
-/* function handleDeleteTask(taskId) {
-        if (window.confirm("Delete task?")) {
-            const updatedTaskList = taskList.filter(
-                (task) => task.id !== taskId
-            );
-            setTaskList(updatedTaskList);
-        }
-    } */
-
-/* function handleModalShow() {
-        setTaskToEdit(null);
-        setShowModal(false);
-    } */
-
-/* function handleSearchTask(searchTerm) {
-        event.preventDefault();
-
-        const clonedTaskList = [...TASK_LIST];
-        const searchedTaskList = clonedTaskList.filter((task) =>
-            task.title.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setTaskList(searchedTaskList);
-    } */
