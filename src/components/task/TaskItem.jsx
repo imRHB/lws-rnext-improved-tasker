@@ -1,14 +1,19 @@
 /* eslint-disable react/prop-types */
 
 import { useContext } from "react";
-import { toast } from "react-toastify";
 
 import { TaskContext } from "../../context";
 import FavoriteIcon from "../ui/FavoriteIcon";
 import TagBadge from "../ui/TagBadge";
 
 export default function TaskItem({ task }) {
-    const { dispatch, setShowModal, setTaskToEdit } = useContext(TaskContext);
+    const {
+        dispatch,
+        setShowModal,
+        setTaskToEdit,
+        setTaskToDelete,
+        setConfirmModal,
+    } = useContext(TaskContext);
 
     function handleToggleFavorite(taskId) {
         event.preventDefault();
@@ -24,16 +29,8 @@ export default function TaskItem({ task }) {
     function handleDeleteTask(taskId) {
         event.preventDefault();
 
-        if (window.confirm("Delete task?")) {
-            dispatch({
-                type: "DELETE_TASK",
-                payload: {
-                    taskId,
-                },
-            });
-
-            toast.success(`A task has been deleted with ${taskId} ID!`);
-        }
+        setTaskToDelete(taskId);
+        setConfirmModal(true);
     }
 
     function handleEditTask(editedTask) {

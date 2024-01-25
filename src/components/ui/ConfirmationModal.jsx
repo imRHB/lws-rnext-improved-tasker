@@ -4,17 +4,35 @@ import { toast } from "react-toastify";
 import { TaskContext } from "../../context";
 
 export default function ConfirmationModal() {
-    const { dispatch, setConfirmModal } = useContext(TaskContext);
+    const { dispatch, setConfirmModal, taskToDelete } = useContext(TaskContext);
 
-    function handleDeleteAllTasks() {
+    function handleDeleteTask() {
         event.preventDefault();
 
-        dispatch({
-            type: "DELETE_ALL_TASKS",
-        });
+        if (!taskToDelete) {
+            toast.error(
+                `No task found to delete with this ${taskToDelete} ID!`
+            );
+            setConfirmModal(false);
+            return null;
+        }
+
+        if (taskToDelete === "ALL_TASKS") {
+            dispatch({
+                type: "DELETE_ALL_TASKS",
+            });
+            toast.success("All tasks has been deleted!");
+        } else {
+            dispatch({
+                type: "DELETE_TASK",
+                payload: {
+                    taskId: taskToDelete,
+                },
+            });
+            toast.success(`A task has been deleted with ${taskToDelete} ID!`);
+        }
 
         setConfirmModal(false);
-        toast.success("All tasks has been deleted!");
     }
 
     return (
@@ -44,7 +62,7 @@ export default function ConfirmationModal() {
                     <button
                         type="button"
                         className="rounded bg-red-600 px-4 py-2 text-white transition-all hover:opacity-80"
-                        onClick={handleDeleteAllTasks}
+                        onClick={handleDeleteTask}
                     >
                         Confirm
                     </button>

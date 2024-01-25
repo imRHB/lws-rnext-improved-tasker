@@ -13,7 +13,7 @@ export default function TaskBoard() {
     const [showModal, setShowModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
     const [taskToEdit, setTaskToEdit] = useState(null);
-    const [onClickAction, setOnClickAction] = useState(null);
+    const [taskToDelete, setTaskToDelete] = useState(null);
 
     return (
         <TaskContext.Provider
@@ -25,8 +25,8 @@ export default function TaskBoard() {
                 setShowModal,
                 confirmModal,
                 setConfirmModal,
-                onClickAction,
-                setOnClickAction,
+                taskToDelete,
+                setTaskToDelete,
             }}
         >
             <section className="mb-20" id="tasks">
