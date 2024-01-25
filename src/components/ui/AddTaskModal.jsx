@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 
 import { TaskContext } from "../../context";
 
@@ -54,6 +55,8 @@ export default function AddTaskModal() {
                     newTask,
                 },
             });
+
+            toast.success("A new task has been added successfully!");
         } else {
             dispatch({
                 type: "EDIT_TASK",
@@ -61,6 +64,8 @@ export default function AddTaskModal() {
                     newTask,
                 },
             });
+
+            toast.success(`A task has been updated with ${newTask.id} ID!`);
         }
 
         setShowModal(false);

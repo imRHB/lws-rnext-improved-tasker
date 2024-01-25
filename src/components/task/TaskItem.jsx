@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { useContext } from "react";
+import { toast } from "react-toastify";
 
 import { TaskContext } from "../../context";
 import FavoriteIcon from "../ui/FavoriteIcon";
@@ -33,6 +34,8 @@ export default function TaskItem({ task }) {
                     taskId,
                 },
             });
+
+            toast.success(`A task has been deleted with ${taskId} ID!`);
 
             // const updatedTaskList = taskList.filter(
             //     (task) => task.id !== taskId

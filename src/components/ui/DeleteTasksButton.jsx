@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { useContext } from "react";
+import { toast } from "react-toastify";
 
 import { TaskContext } from "../../context";
 
@@ -14,6 +15,7 @@ export default function DeleteTasksButton() {
             });
             // taskList.length = 0;
             // setTaskList([...taskList]);
+            toast.success("All tasks has been deleted!");
         }
     }
 
