@@ -5,12 +5,15 @@ import { useContext } from "react";
 import { TaskContext } from "../../context";
 
 export default function DeleteTasksButton() {
-    const { taskList, setTaskList } = useContext(TaskContext);
+    const { dispatch } = useContext(TaskContext);
 
     function handleDeleteAllTasks() {
         if (window.confirm("Delete all tasks?")) {
-            taskList.length = 0;
-            setTaskList([...taskList]);
+            dispatch({
+                type: "DELETE_ALL_TASKS",
+            });
+            // taskList.length = 0;
+            // setTaskList([...taskList]);
         }
     }
 

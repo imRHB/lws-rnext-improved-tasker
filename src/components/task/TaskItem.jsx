@@ -7,24 +7,37 @@ import FavoriteIcon from "../ui/FavoriteIcon";
 import TagBadge from "../ui/TagBadge";
 
 export default function TaskItem({ task }) {
-    const { taskList, setTaskList, setTaskToEdit, setShowModal } =
-        useContext(TaskContext);
+    const { setTaskToEdit, setShowModal, dispatch } = useContext(TaskContext);
 
     function handleToggleFavorite(taskId) {
-        const taskIdx = taskList.findIndex((task) => task.id === taskId);
-        const clonedTaskList = [...taskList];
+        dispatch({
+            type: "TOGGLE_FAVORITE_TASK",
+            payload: {
+                taskId,
+            },
+        });
 
-        clonedTaskList[taskIdx].isFavorite =
-            !clonedTaskList[taskIdx].isFavorite;
-        setTaskList(clonedTaskList);
+        // const taskIdx = state.taskList.findIndex((task) => task.id === taskId);
+        // const clonedTaskList = [...taskList];
+
+        // clonedTaskList[taskIdx].isFavorite =
+        //     !clonedTaskList[taskIdx].isFavorite;
+        // setTaskList(clonedTaskList);
     }
 
     function handleDeleteTask(taskId) {
         if (window.confirm("Delete task?")) {
-            const updatedTaskList = taskList.filter(
-                (task) => task.id !== taskId
-            );
-            setTaskList(updatedTaskList);
+            dispatch({
+                type: "DELETE_TASK",
+                payload: {
+                    taskId,
+                },
+            });
+
+            // const updatedTaskList = taskList.filter(
+            //     (task) => task.id !== taskId
+            // );
+            // setTaskList(updatedTaskList);
         }
     }
 

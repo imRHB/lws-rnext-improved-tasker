@@ -21,9 +21,9 @@ export default function TagBadge({ tag }) {
         <li>
             <span
                 style={{
-                    backgroundColor: `${bgColor}` || "",
+                    backgroundColor: `${bgColor}`,
                 }}
-                className="inline-block h-5 whitespace-nowrap rounded-[45px] px-2.5 text-sm capitalize text-[#F4F5F6]"
+                className="inline-block h-5 whitespace-nowrap rounded-[45px] bg-[#00D991A1] px-2.5 text-sm capitalize text-[#F4F5F6]"
             >
                 {tag}
             </span>

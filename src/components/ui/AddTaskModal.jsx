@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { useContext, useState } from "react";
+
 import { TaskContext } from "../../context";
 
 const taskDefaultState = {
@@ -13,8 +14,15 @@ const taskDefaultState = {
 };
 
 export default function AddTaskModal() {
-    const { taskList, setTaskList, taskToEdit, setTaskToEdit, setShowModal } =
-        useContext(TaskContext);
+    const {
+        taskList,
+        setTaskList,
+        taskToEdit,
+        setTaskToEdit,
+        setShowModal,
+        state,
+        dispatch,
+    } = useContext(TaskContext);
 
     const [task, setTask] = useState(taskToEdit || taskDefaultState);
     const [isAdding, setIsAdding] = useState(Object.is(taskToEdit, null));
@@ -32,7 +40,7 @@ export default function AddTaskModal() {
     function handleAddTask(newTask, isAdding) {
         event.preventDefault();
 
-        if (isAdding) {
+        /* if (isAdding) {
             setTaskList([...taskList, newTask]);
         } else {
             setTaskList(
@@ -44,9 +52,39 @@ export default function AddTaskModal() {
                 })
             );
             setTaskToEdit(null);
+        } */
+
+        if (isAdding) {
+            dispatch({
+                type: "ADD_TASK",
+                payload: {
+                    newTask,
+                },
+            });
+        } else {
+            dispatch({
+                type: "EDIT_TASK",
+                payload: {
+                    newTask,
+                },
+            });
         }
 
         setShowModal(false);
+    }
+
+    /* working */
+    function handleAddNewTask(newTask) {
+        event.preventDefault();
+
+        dispatch({
+            type: "ADD_TASK",
+            payload: {
+                newTask,
+            },
+        });
+
+        // setShowModal(false);
     }
 
     function handleModalClose() {
@@ -135,6 +173,7 @@ export default function AddTaskModal() {
                         type="submit"
                         className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
                         onClick={() => handleAddTask(task, isAdding)}
+                        // onClick={() => handleAddNewTask(task)}
                     >
                         {isAdding ? "Create new Task" : "Update Task"}
                     </button>

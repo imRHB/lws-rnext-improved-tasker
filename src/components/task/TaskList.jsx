@@ -7,18 +7,18 @@ import NotFound from "../shared/NotFound";
 import TaskItem from "./TaskItem";
 
 export default function TaskList() {
-    const { taskList } = useContext(TaskContext);
+    const { state } = useContext(TaskContext);
 
     return (
         <>
-            {taskList.length <= 0 ? (
+            {state.taskList.length <= 0 ? (
                 <NotFound>Task List is empty!</NotFound>
             ) : (
                 <div className="overflow-auto">
                     <table className="table-fixed overflow-auto xl:w-full">
                         <TaskItemHead />
                         <tbody>
-                            {taskList.map((task) => (
+                            {state.taskList.map((task) => (
                                 <TaskItem key={task.id} task={task} />
                             ))}
                         </tbody>
