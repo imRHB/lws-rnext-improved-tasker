@@ -1,7 +1,7 @@
 import { TASK_LIST } from "../data/tasks";
 
 export const initialState = {
-    taskList: TASK_LIST,
+    taskList: [...TASK_LIST],
 };
 
 export const taskReducer = (state, action) => {
@@ -55,8 +55,20 @@ export const taskReducer = (state, action) => {
             };
 
         case "SEARCH_TASK": {
+            /* const clonedTaskList = [...TASK_LIST];
+            const mergedTaskList = clonedTaskList.concat(
+                state.taskList.filter(
+                    (task) => clonedTaskList.indexOf(task.id) === -1
+                )
+            ); */
+
             return {
                 ...state,
+                // taskList: mergedTaskList.filter((task) =>
+                //     task.title
+                //         .toLowerCase()
+                //         .includes(action.payload.searchTerm.toLowerCase())
+                // ),
                 taskList: state.taskList.filter((task) =>
                     task.title
                         .toLowerCase()

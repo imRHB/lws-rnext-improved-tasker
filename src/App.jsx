@@ -17,6 +17,10 @@ function App() {
             <ToastContainer
                 position="bottom-right"
                 theme="dark"
+                toastStyle={{
+                    backgroundColor: "#191D26",
+                    border: "1px solid rgba(206,206,206,0.12)",
+                }}
                 stacked
                 hideProgressBar
             />

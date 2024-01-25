@@ -34,6 +34,17 @@ export default function AddTaskModal() {
     function handleAddTask(newTask, isAdding) {
         event.preventDefault();
 
+        if (
+            task.title.trim() === "" ||
+            task.description.trim() === "" ||
+            task.tags.length <= 0 ||
+            task.priority === ""
+        ) {
+            toast.warn("Please fill all of the fields!");
+
+            return null;
+        }
+
         if (isAdding) {
             dispatch({
                 type: "ADD_TASK",
@@ -50,6 +61,7 @@ export default function AddTaskModal() {
                     newTask,
                 },
             });
+            setTaskToEdit(null);
 
             toast.success(`A task has been updated with ${newTask.id} ID!`);
         }
@@ -64,7 +76,7 @@ export default function AddTaskModal() {
 
     return (
         <>
-            <div className="bg-[#191D26] bg-opacity-90 h-full w-full z-50 absolute top-0 left-0" />
+            <div className="bg-[#191D26] bg-opacity-90 h-full w-full z-50 fixed top-0 left-0" />
 
             <form className="mx-auto my-10 w-full max-w-[740px] rounded-xl border border-[#FEFBFB]/[36%] bg-[#191D26] p-9 max-md:px-4 lg:my-20 lg:p-11 z-50 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                 <h2 className="mb-9 text-center text-2xl font-bold text-white lg:mb-11 lg:text-[28px]">

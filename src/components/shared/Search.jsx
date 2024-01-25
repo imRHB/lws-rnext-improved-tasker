@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 
 import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 
 import { TaskContext } from "../../context";
+import { checkInput } from "../../lib/validator";
 
 export default function Search() {
     const { dispatch } = useContext(TaskContext);
@@ -12,12 +14,16 @@ export default function Search() {
     function handleSearchTask() {
         event.preventDefault();
 
-        dispatch({
-            type: "SEARCH_TASK",
-            payload: {
-                searchTerm,
-            },
-        });
+        if (searchTerm.trim() === "")
+            toast.warn("Type something to search task");
+        else if (checkInput(searchTerm)) {
+            dispatch({
+                type: "SEARCH_TASK",
+                payload: {
+                    searchTerm,
+                },
+            });
+        } else toast.warn("Enter any valid character or number");
     }
 
     return (
