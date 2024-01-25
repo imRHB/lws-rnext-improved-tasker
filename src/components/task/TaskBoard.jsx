@@ -1,19 +1,14 @@
 import { useReducer, useState } from "react";
 
 import { TaskContext } from "../../context/index.js";
-import { TASK_LIST } from "../../data/tasks.js";
-import { taskReducer } from "../../reducers/taskReducer.js";
+import { initialState, taskReducer } from "../../reducers/taskReducer.js";
 import AddTaskModal from "../ui/AddTaskModal.jsx";
 import TaskBoardHeader from "./TaskBoardHeader.jsx";
 import TaskList from "./TaskList";
 
 export default function TaskBoard() {
-    const [state, dispatch] = useReducer(taskReducer, {
-        taskList: TASK_LIST,
-        message: "Task reducer",
-    });
+    const [state, dispatch] = useReducer(taskReducer, initialState);
 
-    const [taskList, setTaskList] = useState(TASK_LIST);
     const [showModal, setShowModal] = useState(false);
     const [taskToEdit, setTaskToEdit] = useState(null);
 
@@ -22,8 +17,6 @@ export default function TaskBoard() {
             value={{
                 state,
                 dispatch,
-                taskList,
-                setTaskList,
                 taskToEdit,
                 setTaskToEdit,
                 setShowModal,

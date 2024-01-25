@@ -14,15 +14,8 @@ const taskDefaultState = {
 };
 
 export default function AddTaskModal() {
-    const {
-        taskList,
-        setTaskList,
-        taskToEdit,
-        setTaskToEdit,
-        setShowModal,
-        state,
-        dispatch,
-    } = useContext(TaskContext);
+    const { taskToEdit, setTaskToEdit, setShowModal, dispatch } =
+        useContext(TaskContext);
 
     const [task, setTask] = useState(taskToEdit || taskDefaultState);
     const [isAdding, setIsAdding] = useState(Object.is(taskToEdit, null));
@@ -71,20 +64,6 @@ export default function AddTaskModal() {
         }
 
         setShowModal(false);
-    }
-
-    /* working */
-    function handleAddNewTask(newTask) {
-        event.preventDefault();
-
-        dispatch({
-            type: "ADD_TASK",
-            payload: {
-                newTask,
-            },
-        });
-
-        // setShowModal(false);
     }
 
     function handleModalClose() {

@@ -3,24 +3,30 @@
 import { useContext, useState } from "react";
 
 import { TaskContext } from "../../context";
-import { TASK_LIST } from "../../data/tasks";
 
 export default function Search() {
-    const { taskList, setTaskList } = useContext(TaskContext);
+    const { dispatch } = useContext(TaskContext);
 
     const [searchTerm, setSearchTerm] = useState("");
 
     function handleSearchTask() {
         event.preventDefault();
 
-        const mergedTaskList = taskList.concat(
-            TASK_LIST.filter((task) => taskList.indexOf(task) < 0)
-        );
+        dispatch({
+            type: "SEARCH_TASK",
+            payload: {
+                searchTerm,
+            },
+        });
 
-        const searchedTaskList = mergedTaskList.filter((task) =>
-            task.title.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setTaskList(searchedTaskList);
+        // const mergedTaskList = state.taskList.concat(
+        //     TASK_LIST.filter((task) => state.taskList.indexOf(task) < 0)
+        // );
+
+        // const searchedTaskList = mergedTaskList.filter((task) =>
+        //     task.title.toLowerCase().includes(searchTerm.toLowerCase())
+        // );
+        // setTaskList(searchedTaskList);
     }
 
     return (
