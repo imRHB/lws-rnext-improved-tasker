@@ -6,7 +6,7 @@ import { TaskContext } from "../../context";
 import FavoriteIcon from "../ui/FavoriteIcon";
 import TagBadge from "../ui/TagBadge";
 
-export default function TaskCard({ task }) {
+export default function TaskItem({ task }) {
     const { taskList, setTaskList, setTaskToEdit, setShowModal } =
         useContext(TaskContext);
 

@@ -2,7 +2,7 @@
 
 export default function NotFound({ children }) {
     return (
-        <div>
+        <div className="py-6">
             <h3 className="text-2xl font-semibold text-center opacity-60">
                 {children}
             </h3>
