@@ -6,6 +6,8 @@ import { TaskContext } from "../../context";
 export default function ConfirmationModal() {
     const { dispatch, setConfirmModal, taskToDelete } = useContext(TaskContext);
 
+    const ALL_TASKS = "ALL_TASKS";
+
     function handleDeleteTask() {
         event.preventDefault();
 
@@ -17,7 +19,7 @@ export default function ConfirmationModal() {
             return null;
         }
 
-        if (taskToDelete === "ALL_TASKS") {
+        if (taskToDelete === ALL_TASKS) {
             dispatch({
                 type: "DELETE_ALL_TASKS",
             });
@@ -41,13 +43,18 @@ export default function ConfirmationModal() {
 
             <div className="mx-auto my-10 w-full max-w-[740px] rounded-xl border border-[#FEFBFB]/[36%] bg-[#191D26] p-9 max-md:px-4 lg:my-20 lg:p-11 z-50 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                 <h2 className="mb-9 text-center text-2xl font-bold text-white lg:mb-11 lg:text-[28px]">
-                    Delete Task
+                    {taskToDelete === ALL_TASKS
+                        ? "Delete All Tasks"
+                        : "Delete Task"}
                 </h2>
 
                 <div className="space-y-9 text-white lg:space-y-10">
                     <p>
-                        Are you sure you want to delete this task? This action
-                        cannot be undone.
+                        Are you sure you want to delete{" "}
+                        {taskToDelete === ALL_TASKS
+                            ? "all of the tasks"
+                            : `this task with ${taskToDelete} ID`}
+                        ? This action cannot be undone.
                     </p>
                 </div>
 

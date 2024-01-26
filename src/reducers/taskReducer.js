@@ -54,22 +54,24 @@ export const taskReducer = (state, action) => {
                 taskList: [],
             };
 
-        case "SEARCH_TASK": {
-            /* const clonedTaskList = [...TASK_LIST];
-            const mergedTaskList = clonedTaskList.concat(
-                state.taskList.filter(
-                    (task) => clonedTaskList.indexOf(task.id) === -1
-                )
-            ); */
+        case "SEARCH_TASK":
+            return {
+                ...state,
+                taskList: state.taskList.filter((task) =>
+                    task.title
+                        .toLowerCase()
+                        .includes(action.payload.searchTerm.toLowerCase())
+                ),
+            };
+
+        /* test block */
+        case "SEARCH_TEST_TASK": {
+            const mergedTaskList = [...TASK_LIST, ...state.taskList];
+            const updatedTaskList = [...new Set(mergedTaskList)];
 
             return {
                 ...state,
-                // taskList: mergedTaskList.filter((task) =>
-                //     task.title
-                //         .toLowerCase()
-                //         .includes(action.payload.searchTerm.toLowerCase())
-                // ),
-                taskList: state.taskList.filter((task) =>
+                taskList: updatedTaskList.filter((task) =>
                     task.title
                         .toLowerCase()
                         .includes(action.payload.searchTerm.toLowerCase())

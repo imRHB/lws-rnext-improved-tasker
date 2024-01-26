@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 
 import { TaskContext } from "../../context";
+import { checkInput } from "../../lib/validator";
 
 const taskDefaultState = {
     id: crypto.randomUUID(),
@@ -40,8 +41,13 @@ export default function AddTaskModal() {
             task.tags.length <= 0 ||
             task.priority === ""
         ) {
-            toast.warn("Please fill all of the fields!");
+            toast.warn("Please fill up all of the fields!");
 
+            return null;
+        }
+
+        if (!checkInput(task.title)) {
+            toast.warn(`Task title cannot be ${task.title}!`);
             return null;
         }
 

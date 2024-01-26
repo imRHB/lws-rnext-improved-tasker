@@ -11,19 +11,28 @@ export default function Search() {
 
     const [searchTerm, setSearchTerm] = useState("");
 
+    /* function handleSearch(evt) {
+        setSearchTerm(event.target.value);
+
+        dispatch({
+            type: "SEARCH_TEST_TASK",
+            payload: {
+                searchTerm: evt.target.value,
+            },
+        });
+    } */
+
     function handleSearchTask() {
         event.preventDefault();
 
-        if (searchTerm.trim() === "")
-            toast.warn("Type something to search task");
-        else if (checkInput(searchTerm)) {
+        if (checkInput(searchTerm)) {
             dispatch({
                 type: "SEARCH_TASK",
                 payload: {
                     searchTerm,
                 },
             });
-        } else toast.warn("Enter any valid character or number");
+        } else toast.warn("Enter any valid character to search");
     }
 
     return (

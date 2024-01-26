@@ -1,6 +1,6 @@
 export const TASK_LIST = [
     {
-        id: "A1B2C3D4",
+        id: "cba76832-4afc-4812-848a-9c00f6d08f92",
         title: "Null Pointer Exception",
         description: "Application crashes due to a null reference in the code.",
         tags: ["bug", "NullPointerException", "crash"],
@@ -8,7 +8,7 @@ export const TASK_LIST = [
         isFavorite: false,
     },
     {
-        id: "E5F6G7H8",
+        id: "50b98032-db03-4787-851d-cc47caef88ea",
         title: "Cross-browser Compatibility",
         description:
             "Page layout issues in different browsers like Chrome, Firefox, and Safari.",
@@ -16,11 +16,8 @@ export const TASK_LIST = [
         priority: "medium",
         isFavorite: true,
     },
-];
-
-const EXTENDED_TASK_LIST = [
     {
-        id: "I9J1K2L3",
+        id: "fa165cc5-71cf-4910-a856-fb93207bffd1",
         title: "Slow Database Query",
         description:
             "Optimize a database query that is causing performance degradation.",
@@ -28,6 +25,9 @@ const EXTENDED_TASK_LIST = [
         priority: "high",
         isFavorite: false,
     },
+];
+
+const EXTENDED_TASK_LIST = [
     {
         id: "M4N5O6P7",
         title: "Security Vulnerability",
