@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 
-import { useContext } from "react";
-
-import { TaskContext } from "../../context";
+import { useTaskContext } from "../../hooks";
 
 export default function DeleteTasksButton() {
-    const { state, setConfirmModal, setTaskToDelete } = useContext(TaskContext);
+    const { state, setConfirmModal, setTaskToDelete } = useTaskContext();
 
     const taskCount = state.taskList.length;
 

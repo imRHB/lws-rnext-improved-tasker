@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { toast } from "react-toastify";
 
-import { TaskContext } from "../../context";
+import { useTaskContext } from "../../hooks";
 
 export default function ConfirmationModal() {
-    const { dispatch, setConfirmModal, taskToDelete } = useContext(TaskContext);
+    const { dispatch, setConfirmModal, taskToDelete } = useTaskContext();
 
     const ALL_TASKS = "ALL_TASKS";
 

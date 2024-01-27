@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import { useContext } from "react";
-
-import { TaskContext } from "../../context";
+import { useTaskContext } from "../../hooks";
 import FavoriteIcon from "../ui/FavoriteIcon";
 import TagBadge from "../ui/TagBadge";
 
@@ -13,7 +11,7 @@ export default function TaskItem({ task }) {
         setTaskToEdit,
         setTaskToDelete,
         setConfirmModal,
-    } = useContext(TaskContext);
+    } = useTaskContext();
 
     function handleToggleFavorite(taskId) {
         event.preventDefault();

@@ -1,13 +1,13 @@
 /* eslint-disable react/prop-types */
 
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
-import { TaskContext } from "../../context";
+import { useTaskContext } from "../../hooks";
 import { checkInput } from "../../lib/validator";
 
 export default function Search() {
-    const { dispatch } = useContext(TaskContext);
+    const { dispatch } = useTaskContext();
 
     const [searchTerm, setSearchTerm] = useState("");
 

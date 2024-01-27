@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
 
-import { useContext } from "react";
-
-import { TaskContext } from "../../context";
+import { useTaskContext } from "../../hooks";
 
 export default function AddTaskButton() {
-    const { setShowModal } = useContext(TaskContext);
+    const { setShowModal } = useTaskContext();
 
     return (
         <button

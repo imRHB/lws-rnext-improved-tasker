@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 
-import { TaskContext } from "../../context";
+import { useTaskContext } from "../../hooks";
 import { checkInput } from "../../lib/validator";
 
 const taskDefaultState = {
@@ -17,7 +17,7 @@ const taskDefaultState = {
 
 export default function AddTaskModal() {
     const { taskToEdit, setTaskToEdit, setShowModal, dispatch } =
-        useContext(TaskContext);
+        useTaskContext();
 
     const [task, setTask] = useState(taskToEdit || taskDefaultState);
     const [isAdding, setIsAdding] = useState(Object.is(taskToEdit, null));

@@ -1,13 +1,11 @@
 /* eslint-disable react/prop-types */
 
-import { useContext } from "react";
-
-import { TaskContext } from "../../context";
+import { useTaskContext } from "../../hooks";
 import NotFound from "../shared/NotFound";
 import TaskItem from "./TaskItem";
 
 export default function TaskList() {
-    const { state } = useContext(TaskContext);
+    const { state } = useTaskContext();
 
     return (
         <>
