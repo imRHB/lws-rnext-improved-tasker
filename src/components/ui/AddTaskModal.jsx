@@ -47,7 +47,9 @@ export default function AddTaskModal() {
         }
 
         if (!checkInput(task.title)) {
-            toast.warn(`Task title cannot be ${task.title}!`);
+            toast.warn(
+                `Task title cannot be only "${task.title}" special character! Add at least one alpha-numeric character.`
+            );
             return null;
         }
 
@@ -69,7 +71,7 @@ export default function AddTaskModal() {
             });
             setTaskToEdit(null);
 
-            toast.success(`A task has been updated with ${newTask.id} ID!`);
+            toast.success(`A task has been updated with "${newTask.id}" ID!`);
         }
 
         setShowModal(false);

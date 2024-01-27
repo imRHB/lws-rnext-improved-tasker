@@ -12,7 +12,7 @@ export default function ConfirmationModal() {
 
         if (!taskToDelete) {
             toast.error(
-                `No task found to delete with this ${taskToDelete} ID!`
+                `No task found to delete with this "${taskToDelete}" ID!`
             );
             setConfirmModal(false);
             return null;
@@ -30,7 +30,7 @@ export default function ConfirmationModal() {
                     taskId: taskToDelete,
                 },
             });
-            toast.success(`A task has been deleted with ${taskToDelete} ID!`);
+            toast.success(`A task has been deleted with "${taskToDelete}" ID!`);
         }
 
         setConfirmModal(false);
@@ -52,7 +52,7 @@ export default function ConfirmationModal() {
                         Are you sure you want to delete{" "}
                         {taskToDelete === ALL_TASKS
                             ? "all of the tasks"
-                            : `this task with ${taskToDelete} ID`}
+                            : `this task with "${taskToDelete}" ID`}
                         ? This action cannot be undone.
                     </p>
                 </div>

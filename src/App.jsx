@@ -5,10 +5,11 @@ import Hero from "./components/Hero";
 import Footer from "./components/shared/Footer";
 import Navbar from "./components/shared/Navbar";
 import TaskBoard from "./components/task/TaskBoard";
+import TaskProvider from "./components/TaskProvider";
 
 function App() {
     return (
-        <>
+        <TaskProvider>
             <Navbar />
             <Hero />
             <TaskBoard />
@@ -24,7 +25,7 @@ function App() {
                 stacked
                 hideProgressBar
             />
-        </>
+        </TaskProvider>
     );
 }
 

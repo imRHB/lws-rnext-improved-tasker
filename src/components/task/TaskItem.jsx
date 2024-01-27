@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 
+import { toast } from "react-toastify";
+
 import { useTaskContext } from "../../hooks";
 import FavoriteIcon from "../ui/FavoriteIcon";
 import TagBadge from "../ui/TagBadge";
@@ -22,6 +24,12 @@ export default function TaskItem({ task }) {
                 taskId,
             },
         });
+
+        toast.success(
+            `A task with "${taskId}" ID has been marked as ${
+                task.isFavorite ? "unfavorite" : "favorite"
+            }!`
+        );
     }
 
     function handleDeleteTask(taskId) {

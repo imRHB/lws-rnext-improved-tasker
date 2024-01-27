@@ -27,10 +27,10 @@ export default function Search() {
         else {
             filteredTaskList.length <= 0
                 ? toast.success(
-                      `No task found with this ${state.searchTerm} keyword, try with different keyword`
+                      `No task found with this "${state.searchTerm}" keyword, try different keyword`
                   )
                 : toast.success(
-                      `${filteredTaskList.length} tasks found with ${state.searchTerm} keyword`
+                      `${filteredTaskList.length} tasks found with "${state.searchTerm}" keyword`
                   );
         }
     }
