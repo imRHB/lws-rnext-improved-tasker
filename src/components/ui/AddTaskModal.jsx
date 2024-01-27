@@ -4,20 +4,21 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 import { useTaskContext } from "../../hooks";
+import useUniqueId from "../../lib/useUniqueId";
 import { checkInput } from "../../lib/validator";
-
-const taskDefaultState = {
-    id: crypto.randomUUID(),
-    title: "",
-    description: "",
-    tags: [],
-    priority: "",
-    isFavorite: false,
-};
 
 export default function AddTaskModal() {
     const { taskToEdit, setTaskToEdit, setShowModal, dispatch } =
         useTaskContext();
+
+    const taskDefaultState = {
+        id: useUniqueId(),
+        title: "",
+        description: "",
+        tags: [],
+        priority: "",
+        isFavorite: false,
+    };
 
     const [task, setTask] = useState(taskToEdit || taskDefaultState);
     const [isAdding, setIsAdding] = useState(Object.is(taskToEdit, null));
@@ -29,6 +30,7 @@ export default function AddTaskModal() {
         if (name === "tags") {
             value = value.split(",");
         }
+
         setTask({ ...task, [name]: value });
     };
 
