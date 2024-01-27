@@ -7,16 +7,20 @@ import TaskItem from "./TaskItem";
 export default function TaskList() {
     const { state } = useTaskContext();
 
+    const filteredTaskList = state.taskList.filter((task) =>
+        task.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+    );
+
     return (
         <>
-            {state.taskList.length <= 0 ? (
+            {filteredTaskList.length <= 0 ? (
                 <NotFound>Task List is empty!</NotFound>
             ) : (
                 <div className="overflow-auto">
                     <table className="table-fixed overflow-auto xl:w-full">
                         <TaskItemHead />
                         <tbody>
-                            {state.taskList.map((task) => (
+                            {filteredTaskList.map((task) => (
                                 <TaskItem key={task.id} task={task} />
                             ))}
                         </tbody>

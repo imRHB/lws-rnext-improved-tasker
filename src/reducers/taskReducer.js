@@ -2,6 +2,7 @@ import { TASK_LIST } from "../data/tasks";
 
 export const initialState = {
     taskList: [...TASK_LIST],
+    searchTerm: "",
 };
 
 export const taskReducer = (state, action) => {
@@ -57,27 +58,8 @@ export const taskReducer = (state, action) => {
         case "SEARCH_TASK":
             return {
                 ...state,
-                taskList: state.taskList.filter((task) =>
-                    task.title
-                        .toLowerCase()
-                        .includes(action.payload.searchTerm.toLowerCase())
-                ),
+                searchTerm: action.payload.searchTerm,
             };
-
-        /* test block */
-        case "SEARCH_TEST_TASK": {
-            const mergedTaskList = [...TASK_LIST, ...state.taskList];
-            const updatedTaskList = [...new Set(mergedTaskList)];
-
-            return {
-                ...state,
-                taskList: updatedTaskList.filter((task) =>
-                    task.title
-                        .toLowerCase()
-                        .includes(action.payload.searchTerm.toLowerCase())
-                ),
-            };
-        }
 
         default:
             throw Error(`Unknown action type: ${action.type}`);

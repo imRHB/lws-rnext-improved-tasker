@@ -1,38 +1,38 @@
 /* eslint-disable react/prop-types */
 
-import { useState } from "react";
 import { toast } from "react-toastify";
 
 import { useTaskContext } from "../../hooks";
-import { checkInput } from "../../lib/validator";
 
 export default function Search() {
-    const { dispatch } = useTaskContext();
+    const { state, dispatch } = useTaskContext();
 
-    const [searchTerm, setSearchTerm] = useState("");
+    const filteredTaskList = state.taskList.filter((task) =>
+        task.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+    );
 
-    /* function handleSearch(evt) {
-        setSearchTerm(event.target.value);
-
+    function handleSearchTask(evt) {
         dispatch({
-            type: "SEARCH_TEST_TASK",
+            type: "SEARCH_TASK",
             payload: {
                 searchTerm: evt.target.value,
             },
         });
-    } */
+    }
 
-    function handleSearchTask() {
-        event.preventDefault();
+    function handleSearchTaskButton(evt) {
+        evt.preventDefault();
 
-        if (checkInput(searchTerm)) {
-            dispatch({
-                type: "SEARCH_TASK",
-                payload: {
-                    searchTerm,
-                },
-            });
-        } else toast.warn("Enter any valid character to search");
+        if (state.searchTerm === "") toast.info("Type something to search...");
+        else {
+            filteredTaskList.length <= 0
+                ? toast.success(
+                      `No task found with this ${state.searchTerm} keyword, try with different keyword`
+                  )
+                : toast.success(
+                      `${filteredTaskList.length} tasks found with ${state.searchTerm} keyword`
+                  );
+        }
     }
 
     return (
@@ -44,14 +44,14 @@ export default function Search() {
                         id="search-dropdown"
                         className="z-20 block w-full bg-gray-800 px-4 py-2 pr-10 focus:outline-none"
                         placeholder="Search Task"
-                        value={searchTerm}
-                        onChange={() => setSearchTerm(event.target.value)}
+                        value={state.searchTerm}
+                        onChange={handleSearchTask}
                         required
                     />
                     <button
                         type="submit"
                         className="absolute right-2 top-0 h-full rounded-e-lg text-white md:right-4"
-                        onClick={handleSearchTask}
+                        onClick={handleSearchTaskButton}
                     >
                         <svg
                             className="h-4 w-4"
